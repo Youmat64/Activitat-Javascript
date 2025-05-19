@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pel·lícules</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Pel·lícules</h1>
+  <input type="text" id="searchInput" placeholder="Cerca..." />
+  <button id="searchBtn">Cerca</button>
+
+  <div id="grid"></div>
+
+  <script src="infopelis.js"></script>
+  <script>
+    const grid = document.getElementById('grid');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    // Funció per mostrar les targetes
+    function mostrarPellicules(llista) {
+      grid.innerHTML = '';
+      llista.forEach(peli => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>${peli.titol}</h3>
+          <p><strong>Director:</strong> ${peli.director}</p>
+          <p><strong>Any:</strong> ${peli.any}</p>
+          <p><strong>Gènere:</strong> ${peli.genere}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Funció per filtrar pel·lícules
+    function filtrarPellicules() {
+      const query = searchInput.value.toLowerCase();
+      const filtrades = pelicules.filter(peli =>
+        Object.values(peli).some(val =>
+          val.toString().toLowerCase().includes(query)
+        )
+      );
+      mostrarPellicules(filtrades);
+    }
+
+    // Mostrar totes al carregar
+    mostrarPellicules(pelicules);
+
+    // Event del botó de cerca
+    searchBtn.addEventListener('click', filtrarPellicules);
+  </script>
+</body>
+</html>

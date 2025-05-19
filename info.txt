@@ -1,0 +1,5 @@
+Nom de l’equip: Els Debugadors
+Membres:
+- Anna Garcia
+- Marc Puig
+- Laia Soler
